@@ -1,10 +1,10 @@
-import helpers
-import constants
+from . import helpers
+from . import constants
 
 
 class PyGNews:
-    def __init__(self, baseURL, country="US", language="en"):
-        self.baseURL = constants.baseURL
+    def __init__(self, baseURL=constants.baseURL, country="US", language="en"):
+        self.baseURL = baseURL
         self.country = country
         self.language = language
 
@@ -18,22 +18,21 @@ class PyGNews:
         entries_dict = helpers.collect_coverage(feeder["entries"])
         return entries_dict
 
-    def topic_headlines(self, topic: str):
+    def topic_headlines(self, topic: str = "WORLD"):
         """Return a list of all articles from the topic page of Google News
         given a country and a language"""
+
         if topic.upper() in constants.TOPICS:
             passed_feed = helpers.feed_parser(
                 self.baseURL
                 + "/headlines/section/topic/{}".format(topic.upper())
-                + helpers.set_ceid(country=self.country,
-                                   language=self.language)
+                + helpers.set_ceid(country=self.country, language=self.language)
             )
         else:
             passed_feed = helpers.feed_parser(
                 self.baseURL
                 + "/topics/{}".format(topic)
-                + helpers.set_ceid(country=self.country,
-                                   anguage=self.language)
+                + helpers.set_ceid(country=self.country, language=self.language)
             )
 
         headlines = helpers.collect_coverage(passed_feed["entries"])
@@ -41,11 +40,12 @@ class PyGNews:
             return headlines
         else:
             raise Exception(
-                "Unsupported Topic, Only the following Topics are allowed {}"
-                .format(constants.TOPICS)
+                "Unsupported Topic, Only the following Topics are allowed {}".format(
+                    constants.TOPICS
+                )
             )
 
-    def location_headlines(self, location: str):
+    def location_headlines(self, location: str = "UK"):
         """Return a list of all articles about a specific geolocation
         given a country and a language"""
 
@@ -60,10 +60,10 @@ class PyGNews:
 
     def search(
         self,
-        search_query: str,
+        search_query: str = None,
         since_when=None,
         after_date=None,
-        before_date=None
+        before_date=None,
     ):
         """
         Return a list of all articles given a full-text search parameter,
@@ -71,6 +71,9 @@ class PyGNews:
         :param bool helper: When True helps with URL quoting
         :param str when: Sets a time range for the artiles that can be found
         """
+
+        if search_query is None:
+            raise TypeError("Input a Search Querry")
 
         if since_when:
             search_query += " when:" + since_when
