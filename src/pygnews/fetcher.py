@@ -4,12 +4,25 @@ from . import constants
 
 class PyGNews:
     def __init__(self, baseURL=constants.baseURL, country="US", language="en"):
+        """Set default parameters for PyGNews objects.
+        Args:
+            baseURL (str, optional): Google News Feed URL.
+                                    Defaults to constants.baseURL.
+            country (str, optional): Base country for the Feed URL.
+                                    Defaults to "US".
+            language (str, optional): Base language for the Feed URL.
+                                      Defaults to "en".
+        """
         self.baseURL = baseURL
         self.country = country
         self.language = language
 
     def top_stories(self):
-        """Top Stories from Google News"""
+        """Return a dictionaries of top news on Google.
+
+        Returns:
+            dict: Google news top stories.
+        """
         feeder = helpers.feed_parser(
             self.baseURL
             + helpers.set_ceid(country=self.country, language=self.language)
@@ -19,9 +32,27 @@ class PyGNews:
         return entries_dict
 
     def topic_headlines(self, topic: str = "WORLD"):
-        """Return a list of all articles from the topic page of Google News
-        given a country and a language"""
+        """ Return a list of all articles from the topic page of Google News
+            given a country and a language
 
+        Args:
+            topic (str, optional): topic of interest. Defaults to "WORLD".
+                                    Available Topics include
+                                    WORLD,
+                                    NATION,
+                                    BUSINESS,
+                                    TECHNOLOGY,
+                                    ENTERTAINMENT,
+                                    SCIENCE,
+                                    SPORTS,
+                                    HEALTH.
+
+        Raises:
+            Exception: When Topic is not in the listed Topics
+
+        Returns:
+            dict: Topic headlines
+        """
         if topic.upper() in constants.TOPICS:
             passed_feed = helpers.feed_parser(
                 self.baseURL
@@ -45,10 +76,16 @@ class PyGNews:
                 )
             )
 
-    def location_headlines(self, location: str = "UK"):
-        """Return a list of all articles about a specific geolocation
-        given a country and a language"""
+    def location_headlines(self, location: str = "US"):
+        """Gives a list of all articles about a specific geolocation
+            given a country and a language
 
+        Args:
+            location (str, optional): Abbreviation of the Country name to search. Defaults to "US".
+
+        Returns:
+            dict: News headlines from country
+        """
         loacation_parsed = helpers.feed_parser(
             self.baseURL
             + "/headlines/section/geo/{}".format(location)
@@ -65,11 +102,25 @@ class PyGNews:
         after_date=None,
         before_date=None,
     ):
-        """
-        Return a list of all articles given a full-text search parameter,
-        a country and a language
-        :param bool helper: When True helps with URL quoting
-        :param str when: Sets a time range for the artiles that can be found
+        """Gives all articles based on search querry and specified date.
+
+        Args:
+            search_query (str, optional): Search Querry. Defaults to None.
+            since_when ([type], optional): Time since when news was published.
+                                           2m Corresponds to 2 minutes,
+                                           2h Corresponds to 2 hours,
+                                           2d Corresponds to 2 days.
+                        Defaults to None.
+            after_date ([type], optional): News puclished after this date.
+                        Defaults to None.
+            before_date ([type], optional): News puclished before this date.
+                        Defaults to None.
+
+        Raises:
+            TypeError: Raise error when search queryis not given.
+
+        Returns:
+            dict: News based on search query.
         """
 
         if search_query is None:
