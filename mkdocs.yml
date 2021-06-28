@@ -1,0 +1,62 @@
+# Project information
+site_name: PyGNews
+site_url: https://gokumohandas.github.io/PyGNews
+site_description: Python Library for Scrapping Google News Feeds.
+site_author: Lawrence Okegbemi
+
+# Repository
+repo_url: https://github.com/Law101/pygnews
+repo_name: Law101/pygnews
+# edit_uri: "" # disables edit button
+
+theme:
+  logo: static/img/logoIconWhite.png
+  favicon: static/img/fav.png
+  name: material
+  palette:
+    - scheme: default #or slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+      primary: grey
+      accent: deep purple
+      
+    - scheme: slate #or slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+      primary: orange
+      accent: light green
+
+  font: 
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+  features:
+  - navigation.tracking
+  - navigation.sections
+  - navigation.top
+  - navigation.indexes
+
+
+# Plugins
+plugins: 
+- search
+- mkdocstrings
+- autorefs
+
+# Copyright
+copyright: Copyright &copy; 2021
+
+# Social media
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/Lawrence_bolu
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/lawrencebolu
+    - icon: fontawesome/brands/github
+      link: https://github.com/Law101
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:lawrencebolu@gmail.com
