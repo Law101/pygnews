@@ -20,18 +20,22 @@ You don't need to install these separately, running the pip install below handle
 
 ## Installation
 
-    pip install pygnews
+```shell
+pip install pygnews
+```
 
 ## Example
 
-    # Import the Fetching Module
-    from pygnews import fetcher
+```python
+# Import the Fetching Module
+from pygnews import fetcher
 
-    # Create Fetching instance
-    news = fetcher.PyGNews()
+# Create Fetching instance
+news = fetcher.PyGNews()
 
-    # Get stop stories from Google News
-    print(news.top_stories())
+# Get stop stories from Google News
+print(news.top_stories())
+```
 
 ## License
 
